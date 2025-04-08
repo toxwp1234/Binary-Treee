@@ -167,13 +167,68 @@ void Find_And_preOrder(Node* Full_tree,int key){ //DZIAŁA
 /// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
 /// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
 
+Node* minValueNode(Node* node) { /// chcąc usunąć node z dwoma dziećmi ide do lewej storny Prawgo dziecka usuwanego i biore go jako nowy rodzic
+    Node* current = node;
+    while (current && current->left != nullptr)
+        current = current->left;
+    return current;
+}
+
+Node* deleteNode(Node* root, int key) {
+    if (root == nullptr) return root;
+
+    if (key < root->key) // jeżeli szukany klucz jest mniejszy to idziemy w lewo
+        root->left = deleteNode(root->left, key);
+    else if (key > root->key) // jeżeli szukany klucz jest większy to idziemy w prawo
+        root->right = deleteNode(root->right, key);
+    else { //znaleslismy node z wartoścą którą chcemy usunąć
+        // przypadek kiedy znaleźliśmy węzeł do usunięcia
+        
+
+
+        //przypadki jeżeli są pojedyńcze dzieci
+        if (root->left == nullptr) {
+            Node* temp = root->right;
+            delete root; // usuwamy węzeł
+            return temp;
+        } else if (root->right == nullptr) {
+            Node* temp = root->left;
+            delete root; // usuwamy węzeł
+            return temp;
+        }
+        // koniec przypadków dla pojedyńczych dzieci
+
+
+        // jeżeli węzeł ma dwoje dzieci, szukam zastępcy kogoś kto go zastąpi
+        Node* temp = minValueNode(root->right);
+        root->key = temp->key; // kopiujemy wartość następcy
+
+        root->right = deleteNode(root->right, temp->key); // usuwamy następnika rekurencyjnie 
+    }
+    return root;
+}
+
+
+
+void deletion(Node* root,int key,int ile){
+
+
+    for (int i = 0; i < ile; ++i) {
+        
+        cout << "Podaj wartość klucza do usunięcia: "<< key<<"\n";
+        // cin >> key;
+        root = deleteNode(root, key);
+        cout << "Drzewo po usunięciu " << key << ": ";
+        preOrder(root);
+        cout << endl;
 
 
 
 
+};
 
 
-
+}
 
 
 
@@ -189,7 +244,7 @@ int main(){
     for (int val : random) {
         root = insert(root, val);
     }
-
-    findMax(root);
+    preOrder(root);
+    deletion(root,12,1);
 
 };

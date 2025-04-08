@@ -1,0 +1,182 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <random>   
+
+using namespace std;
+
+
+
+
+
+
+// Struktura węzła drzewa
+struct Node {
+    int key;
+    Node* left;
+    Node* right;
+    Node(int val) : key(val), left(nullptr), right(nullptr) {} //konsturktor klasy
+};
+
+
+
+// Wstawianie elementu do BST
+Node* insert(Node* root, int key) {
+    if (root == nullptr) {
+        return new Node(key); //jeżeli ten node jest nullptr to ustwiama jego key na nową watośc
+    }
+    if (key < root->key) //jeżeli wartośc jest mniejsza od watości noda na któą patrzymy idziemy w lewo
+        root->left = insert(root->left, key); // wzywanie funkcji przez funkcje 
+    else //jeżeli wartośc jest wieksza lub równa od watości noda na któą patrzymy idziemy w prawo
+        root->right = insert(root->right, key); // wzywanie funkcji przez funkcje 
+    return root;
+}
+
+
+///Funkcje do drzew
+
+
+// Minimalny Element
+
+
+void findMin(Node* root) {
+    if (root == nullptr) {
+        cout << "Drzewo jest puste." << endl;
+        return;
+    }
+
+    Node* current = root;
+    cout << "Sciezka do najmniejszego elementu: ";
+    
+    // Przechodzimy w lewo, aż do  końca
+    while (current->left != nullptr) { //idz w lewo aż zobaczysz nullptr --? ostatnia node
+        cout << current->key << " -> ";
+        current = current->left;
+    }
+    cout << current->key << endl;
+}
+//
+///
+//
+//
+// Maksymalny Element
+
+void findMax(Node* root) {
+    if (root == nullptr) {
+        cout << "Drzewo jest puste." << endl;
+        return;
+    }
+
+    Node* current = root;
+    cout << "Sciezka do największego elementu: ";
+    
+    // Przechodzimy w prawo końca
+    while (current->right != nullptr) { // w prawo idz aż zobaczysz nullptr --? ostatnia node
+        cout << current->key << " -> ";
+        current = current->right;
+    }
+    cout << current->key << endl;
+}
+
+
+/// pre order 
+
+
+void preOrder(Node* root) {
+    if (root != nullptr) {
+        cout << root->key << " ";// Najpierw wypisujemy korzeń
+        preOrder(root->left); // lewe poddrzewo
+        preOrder(root->right);   // prawe poddrzewo
+    }
+}
+
+
+// inorder 
+
+
+void inorder(Node* root) {
+    if (root != nullptr) {
+        inorder(root->left);              // najpierw lewe poddrzewo
+        cout << root->key << " ";         // potem bieżący węzeł
+        inorder(root->right);             // potem prawe poddrzewo
+    }
+}
+
+
+
+
+// Usuwanie drzewa od dzieci do góry
+
+
+void postOrder(Node* root) {
+    if (root != nullptr) {
+        postOrder(root->left);// Najpierw lewe poddrzewo
+        postOrder(root->right);// Potem prawe poddrzewo
+        cout << "Usuwam: " << root->key << endl;  // Wypisanie wartości przed usunięciem
+        delete root;                  // Usuwanie 
+    }
+}
+
+
+/// 
+
+
+
+// Funkcja do znalezienia węzła o podanym kluczu 
+
+// POMOCNICZA
+Node* findNode(Node* root, int key) {
+    if (root == nullptr || root->key == key) //jeżeli moja node jest pusta albo jej klucz jest równy poszukiwanemu zwróć
+        return root;
+
+    if (key < root->key) //jeżeli klucz jest mniejszy od klucza noda to idz porównaj go z dzieckiem po lewej
+        return findNode(root->left, key);  // Szukamy w lewym poddrzewie
+    else //jeżeli klucz nie jest mniejszy od klucza noda to idz porównaj go z dzieckiem po prwaej
+        return findNode(root->right, key); // Szukamy w prawym poddrzewie
+}
+
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+
+
+
+void Find_And_preOrder(Node* Full_tree,int key){
+
+    Node* node_with_key = findNode(Full_tree,key); // znajduje node z moją szukaną wartoścą
+
+
+    preOrder(node_with_key); //wywołumje funkcje preorder czyli drukuje je najpier lewo dla każdego po tem prawo
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int main(){
+
+
+    vector<int> random ={12, 22, 63, 4, 55, 61, 7, 32, 89, 17, 25, 48,1, 91, 36, 58, 19, 77, 49, 64, 81, 92, 33, 18, 56, 44};
+
+    Node* root = nullptr;
+    for (int val : random) {
+        root = insert(root, val);
+    }
+
+    Find_And_preOrder(root,12);
+
+
+};

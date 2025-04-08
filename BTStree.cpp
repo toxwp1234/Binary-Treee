@@ -46,11 +46,11 @@ void findMin(Node* root) {
     }
 
     Node* current = root;
-    cout << "Sciezka do najmniejszego elementu: ";
+    cout << "";
     
     // Przechodzimy w lewo, aż do  końca
     while (current->left != nullptr) { //idz w lewo aż zobaczysz nullptr --? ostatnia node
-        cout << current->key << " -> ";
+        cout << current->key << " do ";
         current = current->left;
     }
     cout << current->key << endl;
@@ -68,11 +68,11 @@ void findMax(Node* root) {
     }
 
     Node* current = root;
-    cout << "Sciezka do największego elementu: ";
+    cout << "";
     
     // Przechodzimy w prawo końca
     while (current->right != nullptr) { // w prawo idz aż zobaczysz nullptr --? ostatnia node
-        cout << current->key << " -> ";
+        cout << current->key << " do ";
         current = current->right;
     }
     cout << current->key << endl;
@@ -82,7 +82,7 @@ void findMax(Node* root) {
 /// pre order 
 
 
-void preOrder(Node* root) {
+void preOrder(Node* root) { //działa
     if (root != nullptr) {
         cout << root->key << " ";// Najpierw wypisujemy korzeń
         preOrder(root->left); // lewe poddrzewo
@@ -94,7 +94,7 @@ void preOrder(Node* root) {
 // inorder 
 
 
-void inorder(Node* root) {
+void inorder(Node* root) { //działa
     if (root != nullptr) {
         inorder(root->left);              // najpierw lewe poddrzewo
         cout << root->key << " ";         // potem bieżący węzeł
@@ -108,10 +108,10 @@ void inorder(Node* root) {
 // Usuwanie drzewa od dzieci do góry
 
 
-void postOrder(Node* root) {
+void postOrder_del(Node* root) { //działa
     if (root != nullptr) {
-        postOrder(root->left);// Najpierw lewe poddrzewo
-        postOrder(root->right);// Potem prawe poddrzewo
+        postOrder_del(root->left);// Najpierw lewe poddrzewo
+        postOrder_del(root->right);// Potem prawe poddrzewo
         cout << "Usuwam: " << root->key << endl;  // Wypisanie wartości przed usunięciem
         delete root;                  // Usuwanie 
     }
@@ -143,7 +143,7 @@ Node* findNode(Node* root, int key) {
 
 
 
-void Find_And_preOrder(Node* Full_tree,int key){
+void Find_And_preOrder(Node* Full_tree,int key){ //DZIAŁA
 
     Node* node_with_key = findNode(Full_tree,key); // znajduje node z moją szukaną wartoścą
 
@@ -152,6 +152,20 @@ void Find_And_preOrder(Node* Full_tree,int key){
 
 };
 
+
+
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+
+
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
+/// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
 
 
 
@@ -176,7 +190,6 @@ int main(){
         root = insert(root, val);
     }
 
-    Find_And_preOrder(root,12);
-
+    findMax(root);
 
 };

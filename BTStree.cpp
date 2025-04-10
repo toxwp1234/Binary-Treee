@@ -54,12 +54,14 @@ void findMin(Node* root) {
         current = current->left;
     }
     cout << current->key << endl;
+    cout <<"\n\n";
 }
 //
 ///
 //
 //
-// Maksymalny Element
+// Maksymalny Element 
+//wyszukanie w drzewie elementu o najmniejszej i największej wartości i wypisanie ścieżki poszukiwania (od korzenia do elementu szukanego),
 
 void findMax(Node* root) {
     if (root == nullptr) {
@@ -76,6 +78,7 @@ void findMax(Node* root) {
         current = current->right;
     }
     cout << current->key << endl;
+    cout <<"\n\n";
 }
 
 
@@ -106,14 +109,16 @@ void inorder(Node* root) { //działa
 
 
 // Usuwanie drzewa od dzieci do góry
+//usunięcie całego drzewa element po elemencie metodą post-order (wypisz element przed usunięciem),
 
 
-void postOrder_del(Node* root) { //działa
+void postOrder_del(Node*& root) { //działa
     if (root != nullptr) {
         postOrder_del(root->left);// Najpierw lewe poddrzewo
         postOrder_del(root->right);// Potem prawe poddrzewo
         cout << "Usuwam: " << root->key << endl;  // Wypisanie wartości przed usunięciem
         delete root;                  // Usuwanie 
+        root = nullptr; // Ustawienie wskaźnika na nullptr po usunięciu aby srio usuwało
     }
 }
 
@@ -141,7 +146,7 @@ Node* findNode(Node* root, int key) {
 /// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
 /// GŁÓWNA FUNKCJA DO PREORDER OD DANEGO KLUCZA
 
-
+/wypisanie w porządku pre-order poddrzewa, którego korzeń (klucz) podaje użytkownik,
 
 void Find_And_preOrder(Node* Full_tree,int key){ //DZIAŁA
 
@@ -208,8 +213,32 @@ Node* deleteNode(Node* root, int key) {
     return root;
 }
 
+//usunięcie elementu drzewa o wartości klucza podanej przez użytkownika (użytkownik wpisuje ile węzłów chce usunąć i podaje wartości kluczy),
 
 
+//
+
+
+void zapytanie(Node* root){ //działa
+    cout << "Podaj ile chcesz usunąc: ";
+    int n;
+    cin >> n;
+    for (int i = 0;i<n;i++){
+        cout << "Podaj liczbę  do usunięcia: ";
+        int co;
+        cin >> co;
+        cout << "Usuwam :"<<co<<"\n\n";
+        deleteNode(root,co); //wywołuje funkcje usuwania
+
+
+    }
+
+
+
+
+}
+
+ 
 void deletion(Node* root,int key,int ile){
 
 
@@ -247,7 +276,10 @@ int main(){
     for (int val : random) {
         root = insert(root, val);
     }
-    preOrder(root);
-    deletion(root,12,1);
+    
+    postOrder_del(root); //usuwam drzewo od dzieci do góry
+    
+    preOrder(root); //wypisuje drzewo po usunięciu 12
+
 
 };
